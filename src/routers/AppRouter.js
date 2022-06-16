@@ -4,8 +4,12 @@ import {
   CSSTransition,
   TransitionGroup,
 } from 'react-transition-group';
-
-import Home from '../components/Home';
+import Dashboard from '../components/Dashboard';
+import Signin from '../components/Signin';
+import Pof from '../components/Pof';
+import Loanstatus from '../components/Loanstatus';
+import Approvedloans from '../components/Approvedloans';
+import Businessloan from '../components/Businessloan';
 
 
 const AppRouter = () => {
@@ -19,7 +23,14 @@ const AppRouter = () => {
     <TransitionGroup>
     <CSSTransition key={location.key} timeout={450} classNames="fade">
          <Switch  location={location}>
-  <Route path="/" component={Home} exact={true} />
+  <Route path="/" component={Signin} exact={true} />
+  <Route path="/home" component={Dashboard} exact={true} />
+  <Route path="/pof" component={Pof} exact={true} />
+  <Route path="/loanstatus" component={Loanstatus} exact={true} />
+  <Route path="/approvedloans" component={Approvedloans} exact={true} />
+  <Route path="/businessloan" component={Businessloan} exact={true} />
+
+
 
      </Switch>
      </CSSTransition>

@@ -1,31 +1,384 @@
+.fade-appear,
+.fade-enter {
+    opacity: 0;
+    z-index: 1;
+}
+.fade-appear-active,
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms linear 150ms;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+
+td{
+    font-size:14px
+}
+
+/* table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+} */
+
+#poftable{
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.tablebutton{
+    border-radius:30px;
+    font-size:12px;
+    padding-left:50px;
+    padding-right:50px;
+    width:60%
+}
+
+.image-upload>input {
+    display: none;
+  }
+
+
+.tablesubtext{
+    font-size:14px;
+    color:#7F8FA4;
+
+}
+
+.modaltitle{
+    font-size:13px
+}
+.modalquestion{
+    font-size:13px;
+    padding-top:30px
+}
+
+.verifybutton{
+    background-color:#FFF;
+    color:#474D66;
+    padding: 4px 16px 4px 16px;
+    border-radius:3px;
+    border:1px solid#C1C4D6;
+    font-size:13px
+}
+
+.markasdeliveredbutton{
+    background-color:#DCF2EA;
+    color:#FFF;
+    padding: 4px 16px 4px 16px;
+    border-radius:3px;
+    border:1px solid#DCF2EA;
+}
+
+.tableimage{
+    width:60px;
+    height:60px
+}
+
+.successbutton{
+    background-color:#52BD95;
+    border:#52BD95;
+    color:#FFF;
+    padding: 4px 16px 5px 16px;
+    border-radius:3px;
+    margin-left:20px;
+    margin-right:20px;
+    font-size:13px
+    
+
+}
+
+.modal-header{
+    border-bottom:0px
+}
+
+.modalbuttons{
+    text-align:right;
+    margin-top:0px;
+    margin-bottom:40px;
+  
+}
+
+
+.blockbutton{
+    background-color:#D14343;
+    border:1px solid#D14343;
+    color:#FFF;
+    padding: 4px 16px 4px 16px;
+    border-radius:3px
+}
+
+.blockbuttonmodal{
+    background-color:#D14343;
+    border:1px solid#D14343;
+    color:#FFF;
+    padding: 4px 16px 4px 16px;
+    border-radius:3px;
+    margin-left:20px;
+    margin-right:20px;
+    font-size:13px
+}
+
+
+.tabletext{
+    font-size:14px;
+    color:#414042;
+    /* padding-left:30px; */
+    font-weight:300!important
+}
+
+th{
+    color: #000!important;
+    font-size: 0.875em;
+    font-weight:600!important;
+      background: #FFF!important;
+
+}
+
+.table .thead-dark th {
+    border: none;
+}
+
+.pagination{
+    margin-top:20px;
+    margin-bottom:40px;
+    float:right
+}
+
+.pagination>li>a, .pagination>li>span {
+    /* position: relative;
+    float: right; */
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+
+.filtericon{
+    float:right;
+    color:#3366FF
+}
+
+.nav-link{
+    padding:0px
+}
+
+.mainbody{
+    height:180vh;
+    background-color:#F7F8FA
+}
+
+.modaltitle{
+    font-weight:bold
+}
+
+.activatemodalbody{
+    padding-left:20px;
+    padding-right:20px;
+    padding-bottom:50px
+}
+
+.modaloption1{
+    margin-top:30px
+}
+
+.modaloption2{
+    margin-top:30px
+}
+
+.modaloption3{
+    margin-top:30px
+}
+
+.modaloption4{
+    margin-top:20px
+}
+
+.modalsubmit{
+    margin-top:40px
+}
+
+.adminname{
+    background-color:#0F5156;
+    border-radius:50%;
+    font-size:17px;
+    color:#FFF;
+    padding:5px 8px 5px 8px
+}
+
+.navbar-nav{
+    padding-top:20px
+}
+
+.spinner-border{
+   
+    display:none;
+    position:absolute;
+    margin-left:130px;
+    margin-top:3px
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* LOGIN */
+.loginlogo{
+    text-align:center;
+    margin-top:150px;
+    margin-bottom:70px;
+  
+
+}
+
+.loginbox{
+    box-shadow: 0 0 1px rgb(67 90 111 / 30%), 0 5px 8px -4px rgb(67 90 111 / 47%);
+    padding: 30px 80px 50px 80px;
+   
+}
+
+.logintitle{
+    color:#101840;
+    font-size:1.2em;
+    text-align:center;
+    font-weight:700;
+    padding-bottom:40px
+  
+}
+
+.submitbutton{
+    margin-top:40px;
+    font-size:14px;
+    background-color:#DD3737;
+    border:#DD3737;
+    border-radius:40px
+}
+
+.submitbutton:hover{
+    margin-top:40px;
+    font-size:14px;
+    background-color:#DD3737;
+    border:#DD3737;
+    border-radius:40px
+}
+/* LOGIN */
+
+/* CUSTOMERS */
+.customerlabel{
+    font-size:14px
+}
+
+.filteroptions{
+margin-top:50px;
+background-color:#FFF;
+padding:40px 20px 80px 20px
+}
+
+.filterbuttons{
+    float:right;
+    margin-top:20px
+}
+
+.clearall{
+    border: 1px solid #C1C4D6;
+    color:#474D66;
+    background-color: #FFF;
+    padding: 9px 12px 9px 12px;
+    border-radius:5px;
+    font-size:16px
+}
+
+.apply{
+    border: 1px solid #DD3737;
+    color:#FFF;
+    background-color: #DD3737;
+    padding: 9px 12px 9px 12px;
+    border-radius:5px;
+    margin-left:10px;
+    font-size:14px
+}
+
+.newloanbutton{
+    border: 1px solid #DD3737;
+    color:#FFF;
+    background-color: #DD3737;
+    padding: 9px 12px 9px 12px;
+    border-radius:5px;
+    margin-top:20px;
+    font-size:14px
+}
+
+
+
+.thecount{
+    /* padding-bottom:50px */
+}
+/* CUSTOMERS */
+
+
+
+
+
+
+
+
+.generateinvoicep{
+    text-align:center;
+    margin-top:40px;
+    padding-bottom:80px;
+ }
+
+
+
 .rightnavmenu{
-    margin-left:40px;
+    margin-left:0px;
+    
 }
-.thenavbaractive{
-    border-left:20px solid #1875F0!important;
-    color:#647787;
-    font-size:11px;
-    padding-left:28px;
-    background-color: #E8F1FD;
-    cursor: pointer;
-    padding-top:8px;
-    padding-bottom:8px;
-    width:140%!important
+
+.table{
+    margin-top:60px
+}
 
 
-}
 
 
 .thenavbar{
     padding-left:80px;
     padding-right:80px;
-    background-color:#FFF!important;
+    /* background-color:#FFF!important; */
     box-shadow: 0px 4px 10px rgba(79, 79, 79, 0.07);
 }
 
 .paymentbox{
     padding-right:80px;
-    padding-left:80px
+    padding-left:80px;
+    margin-top:50px
 }
 
 .statsbox{
@@ -49,23 +402,44 @@
 
 .thestatsbox{
     background-color:#FFF;
-    padding-top:30px;
+    padding-top:15px;
     padding-bottom:30px;
     height:100px;
-    border-left:10px solid #F7F8FA
+    box-shadow: 0 0 1px rgb(67 90 111 / 30%), 0 5px 8px -4px rgb(67 90 111 / 47%);
+
+
+
     /* margin-right:20px; */
     /* max-width: 24%!important; */
 }
 
+.greetingsmain{
+    font-size: 20px;
+    color:#101840;
+    padding-top:40px;
+    font-weight:500
+}
+
+.greetings{
+    font-size: 16px;
+    color:#101840;
+    padding-top:40px;
+    font-weight:600
+}
+
+.totalrevenuebox{
+    margin-top:50px
+}
+
 .stattitle{
-    font-size:12px;
-    color:#787c90
+    font-size:16px;
+    color:#101840
 }
 
 .statfigure{
-    font-size:18px;
-    color:#262626;
-    margin-top:-15px
+    font-size:1.2em;
+    color:#474D66;
+    margin-top:0px
 }
 
 .statstitlepayments{
@@ -137,8 +511,10 @@
 }
 
 .hello{
-    font-size:10px;
-    float:right
+    font-size:14px;
+    float:left;
+    color:#474D66;
+    line-height:20px
 }
 
 .avatar{
@@ -172,10 +548,26 @@
 
 
 .thenavbarmenu{
-    color:#647787;
-    font-size:11px;
-    padding-left:50px;
+    color:#777777;
+    font-size:15px;
+    padding-left:40px;
     cursor: pointer;
+}
+
+.thenavbaractive{
+    color:#000000;
+    font-size:14px;
+    padding-left:60px;
+    cursor: pointer;
+
+}
+
+.thenavbarmenuspan{
+    padding-left:20px
+}
+
+.thenavbariconactive{
+    color:#000000;
 }
 
 .thenavbarmenutitle{
@@ -216,6 +608,7 @@
 
 .sidebyside {
 font-size:13px;
+padding-bottom:10px
 /* font-family:Segoe UI */
 
 
@@ -261,33 +654,6 @@ padding:10px;
 
 
 
-.tablebutton{
-    border-radius:30px;
-    font-size:12px;
-    padding-left:50px;
-    padding-right:50px;
-    width:60%
-}
-
-.tablesubtext{
-    font-size:14px;
-    color:#7F8FA4;
-
-}
-
-.tabletext{
-    font-size:14px;
-    color:#414042;
-    padding-left:30px;
-    font-weight:300!important
-}
-
-th{
-    color: #7F8FA4!important;
-    font-size:14px;
-    font-weight:300!important
-
-}
 
 .reconciled{
     color: #27AE60;
@@ -370,11 +736,26 @@ tr{
 /* MEDIA QUERIES */
 
 @media  screen and (max-width: 1440px) {
-
+    .spinner-border{
+   
+        display:none;
+        position:absolute;
+        margin-left:90px;
+        margin-top:3px
+    }
+    
 }
 
 @media  screen and (max-width: 1366px) {
-
+    .spinner-border{
+   
+        display:none;
+        position:absolute;
+        margin-left:90px;
+        margin-top:3px
+    }
+    
+    
 }
 
 
@@ -417,7 +798,7 @@ tr{
 
     .generateinvoicep{
  
-        padding-left:30px;
+       text-align:center
     }
 
     .generateinvoice{
@@ -464,6 +845,8 @@ table {
 .thesidebarrow{
 display:none
 }
+
+
 
 .mobilearrows{
     margin-top:10px;
