@@ -8,6 +8,7 @@ import "../../js/paginathing.js"
 function Businessloantable() {
 
   const [loanid, setLoanId] = useState();
+  const [loanId2, setLoanId2] = useState();
   const [username, setUserName] = useState();
   const [amount, setAmount] = useState();
   const [duration, setDuration] = useState();
@@ -19,15 +20,105 @@ function Businessloantable() {
   // CREDIT OFFICER MODALS
   const [approvecoshow, setApproveCoShow] = useState(false);
   const [declinecoshow, setDeclineCoShow] = useState(false);
+  const [morecoshow, setMoreCoShow] = useState(false);
   const handleCoApproveClose = () => setApproveCoShow(false);
   const handleCoDeclineClose = () => setDeclineCoShow(false);
-
+  const handleCoMoreClose = () => setMoreCoShow(false);
   const [totalNumber, setTotalNumber] = useState("(...)");
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [passport, setpassport ] = useState("/images/passport.svg");
   const [additionaldocument, setadditionaldocument ] = useState("/images/offerletter.svg");
   const [ passporturl, setpassporturl ] = useState("");
   const [ additionaldocumenturl, setadditionaldocumenturl ] = useState("");
+
+
+  const [crcreport, setcrcreport ] = useState("/images/crcreport.svg");
+  const [cvreport, setcvreport ] = useState("/images/cvreport.svg");
+  const [ crcreporturl, setcrcreporturl ] = useState("");
+  const [ cvreporturl, setcvreporturl ] = useState("");
+
+
+    // UPLOAD CERTIFICATE
+    useEffect(() =>{
+      // $('.loading').css("visibility", "visible");
+     
+      const data = new FormData()
+      data.append("file", crcreport)
+      data.append("upload_preset", "wzqbt0tn")
+      data.append("cloud_name","dbvhyaqgg")
+      $(".overlay").fadeIn(1);
+      fetch("  https://api.cloudinary.com/v1_1/dbvhyaqgg/upload",{
+        // beforeSend: function(){
+        //   $('.loading').css("visibility", "visible");
+        //   },
+      method:"post",
+      body: data
+      })
+      .then(resp => resp.json())
+      .then(data => {
+      setcrcreporturl(data.url)
+      console.log(data)
+      if(data.error){
+        document.getElementById("crcreport").src = "/images/crcreport.svg"
+        $(".overlay").fadeOut(0);
+        // $('.loading').css("visibility", "hidden");
+      }
+      else{
+        document.getElementById("crcreport").src = data.url
+        $(".overlay").fadeOut(0);
+        // localStorage.setItem("songart", data.secure_url);
+        // $('.loading').css("visibility", "hidden");
+      }
+  
+  
+      })
+      .catch(err => console.log(err))
+       
+    },[crcreport])
+      // UPLOAD CERTIFICATE
+  
+  
+    // UPLOAD COLLATERAL
+    useEffect(() =>{
+      // $('.loading').css("visibility", "visible");
+      const data = new FormData()
+      data.append("file", cvreport)
+      data.append("upload_preset", "wzqbt0tn")
+      data.append("cloud_name","dbvhyaqgg")
+      $(".overlay").fadeIn(1);
+      fetch("  https://api.cloudinary.com/v1_1/dbvhyaqgg/upload",{
+        // beforeSend: function(){
+        //   $('.loading').css("visibility", "visible");
+        //   },
+      method:"post",
+      body: data
+      })
+      .then(resp => resp.json())
+      .then(data => {
+      setcvreporturl(data.url)
+      console.log(data)
+      if(data.error){
+        document.getElementById("cvreport").src = "/images/cvreport.svg"
+        $(".overlay").fadeOut(0);
+        // $('.loading').css("visibility", "hidden");
+      }
+      else{
+        document.getElementById("cvreport").src = data.url
+        $(".overlay").fadeOut(0);
+        // localStorage.setItem("songart", data.secure_url);
+        // $('.loading').css("visibility", "hidden");
+      }
+      })
+      .catch(err => console.log(err))
+    },[cvreport])
+    // UPLOAD COLLATERAL
+  
+
+
+
+
+
+
   var userrole = localStorage.getItem("role")
 
   let theuserrole
@@ -153,52 +244,88 @@ else if(userrole === "ACC"){
       var totalrecords = response.length
       setTotalNumber(totalrecords)
       $.each(response, function (i) {
-
+        if(response[i].offer_code === "RO-BL-BL"){
         var table = document.getElementById('records_table');
         var tr = document.createElement('tr');
         var defaultDates = response[i].created_at
         var d = new Date(defaultDates).toString();
         var actualdate = d.split(' ').splice(0, 5).join(' ')
 
-        let currency
-        if (response[i].foreign_currency === "dollar") {
-          currency = "$"
+        let directors
+        let type
+
+        if (response[i].number_of_directors === null) {
+          directors = "1"
+        }
+        else {
+          directors = response[i].number_of_directors 
         }
 
-        else {
-          currency = "&#163;"
+        if (response[i].registration_type === "bn") {
+          type = "Business name"
         }
+        else   if (response[i].registration_type === "ltd") {
+          type = "Limited"
+        }
+
+    
+
+
+        // else{
+        //   director1bvn = "Empty"
+        // }
+
+        // if(response[i].directors[1].bvn){
+        //   director2bvn = response[i].directors[1].bvn
+        // }
+
+        // else{
+        //   director2bvn = "Empty"
+        // }
 
         var td1 = document.createElement('td');
         td1.innerText = response[i].loan_id;
+
         var td2 = document.createElement('td');
-        td2.innerHTML = response[i].user
+        td2.innerText = response[i].id;
+
         var td3 = document.createElement('td');
-        td3.innerHTML = response[i].first_name
+        td3.innerHTML = response[i].user;
         var td4 = document.createElement('td');
-        td4.innerHTML = response[i].last_name
+        td4.innerHTML = response[i].first_name
         var td5 = document.createElement('td');
-        td5.innerHTML = actualdate
+        td5.innerHTML = response[i].last_name
         var td6 = document.createElement('td');
-        td6.innerHTML = "Naira: &#x20A6;" + parseInt(response[i].amount_requested_local).toLocaleString() + "<br/>" + "Foreign " + currency + parseInt(response[i].amount_requested_foreign).toLocaleString()
+        td6.innerHTML = actualdate
         var td7 = document.createElement('td');
-        td7.innerHTML = response[i].duration + " Months"
+        td7.innerHTML = "&#x20A6;" + parseInt(response[i].principal).toLocaleString() 
+        var td8 = document.createElement('td');
+        td8.innerHTML = response[i].duration + " Months"
         // var td6 = document.createElement('td');
         // td6.innerHTML = "C.O: " + "Approved" + "<br/>" + "C.R.O " + "Pending" + "<br/>" + "C.C " + "Pending" + "<br/>" + "Account " + "Pending"
         
-        var td8 = document.createElement('td');
-        td8.innerHTML = response[i].country_of_visit
         var td9 = document.createElement('td');
-        td9.innerHTML = response[i].travel_reason
+        td9.innerHTML = "&#x20A6;" +  parseInt(response[i].annual_turnover).toLocaleString() 
         var td10 = document.createElement('td');
-        td10.innerHTML = `<a target='_blank' href='${response[i].passport}'><img class='tableimage' src='${response[i].passport}'/></a>`
+        td10.innerHTML = type
         var td11 = document.createElement('td');
-        td11.innerHTML = `<a target='_blank' href='${response[i].additional_documents.document_url}'><img class='tableimage' src='${response[i].additional_documents[0].document_url}'/></a>`
+        td11.innerHTML = response[i].name_of_business
         var td12 = document.createElement('td');
-        td12.innerHTML = "<button class='verifybutton'>" + "Approve" + "</button>"
+        td12.innerHTML =  response[i].reg_number
         var td13 = document.createElement('td');
-        td13.innerHTML = "<button class='blockbutton'>" + "Decline" + "</button>"
+        td13.innerHTML =  directors
+        var td14 = document.createElement('td');
+        td14.innerHTML =   response[i].registration_date
+        var td15 = document.createElement('td');
+        td15.innerHTML =   response[i].city_of_incorporation
+        var td16 = document.createElement('td');
+        td16.innerHTML = "<button class='verifybutton'>" + "More" + "</button>"
+        var td17 = document.createElement('td');
+        td17.innerHTML = "<button class='verifybutton'>" + "Approve" + "</button>"
+        var td18 = document.createElement('td');
+        td18.innerHTML = "<button class='blockbutton'>" + "Decline" + "</button>"
 
+        // td10.innerHTML = `<a target='_blank' href='${response[i].passport}'><img class='tableimage' src='${response[i].passport}'/></a>`
 
         tr.appendChild(td1);
         tr.appendChild(td2);
@@ -213,57 +340,81 @@ else if(userrole === "ACC"){
         tr.appendChild(td11);
         tr.appendChild(td12);
         tr.appendChild(td13);
+        tr.appendChild(td14);
+             tr.appendChild(td15);
+             tr.appendChild(td16);
+             tr.appendChild(td17);
+                  tr.appendChild(td18);
         table.appendChild(tr);
 
-        td12.onclick = function () {
+
+        td16.onclick = function () {
+          setLoanId(td1.innerText)
+          
+          setMoreCoShow(true)
+
+          let director2fullname
+          let director2bvn
+
+          var settings = {
+            "url": `https://credisol-app.herokuapp.com/v1/loans/all/` + td1.innerText,
+          "method": "GET",
+          "timeout": 0,
+          "headers": {
+            "Authorization": "Bearer " + localStorage.getItem("access_token")
+          }
+        }
+        $.ajax(settings).done(function (response) {
+            console.log(response)
+        
+        if(response.directors[1]){
+          director2fullname = response.directors[1].full_name
+          director2bvn = response.directors[1].bvn
+        }
+        else{
+          console.log("doesnt exist")
+          director2fullname = "Empty"
+          director2bvn = "Empty"
+        }
+
+            document.getElementById("identificationlink").src =  response.additional_documents[0].document_url
+            document.getElementById("identification").src = response.additional_documents[0].document_url
+
+            document.getElementById("photographlink").src =  response.additional_documents[1].document_url
+            document.getElementById("photograph").src = response.additional_documents[1].document_url
+
+            document.getElementById("ownershiplink").src =  response.additional_documents[2].document_url
+            document.getElementById("ownership").src = response.additional_documents[2].document_url
+
+            document.getElementById("collaterallink").src =  response.additional_documents[3].document_url
+            document.getElementById("collateral").src = response.additional_documents[3].document_url
+
+            document.getElementById("certificatelink").src = response.additional_documents[4].document_url
+            document.getElementById("certificate").src = response.additional_documents[4].document_url
+
+            document.getElementById("director1name").innerHTML = response.directors[0].full_name
+            document.getElementById("director1bvn").innerHTML = response.directors[0].bvn
+
+            document.getElementById("director2name").innerHTML = director2fullname
+            document.getElementById("director2bvn").innerHTML = director2bvn
+        })
+     
+        };
+
+        td17.onclick = function () {
           setLoanId(td1.innerText)
           setApproveCoShow(true)
-        // var userrole = localStorage.getItem("role")
-        // console.log(userrole)
-        // if(userrole === "CO"){
-        //   setApproveCoShow(true)
-        // }
-        
-        // else if(userrole === "CC"){
-        //   setApproveCcShow(true)
-        // }
-        
-        // else if(userrole === "HOC"){
-        //   setApproveHocShow(true)
-        // }
-        
-        // else if(userrole === "ACC"){
-        //   setApproveAccShow(true)
-        // }
-         
-        
-        
+          setLoanId2(td2.innerText)
+          // console.log(loanId2)
         };
 
-        td13.onclick = function () {
+        td18.onclick = function () {
           setLoanId(td1.innerText)
           setDeclineCoShow(true)
-          // var userrole = localStorage.getItem("role")
-          // if(userrole === "CO"){
-          //   setDeclineCoShow(true)
-          // }
-          
-          // else if(userrole === "CC"){
-          //   setDeclineCcShow(true)
-          // }
-          
-          // else if(userrole === "HOC"){
-          //   setDeclineHocShow(true)
-          // }
-          
-          // else if(userrole === "ACC"){
-          //   setDeclineAccShow(true)
-          // }
-           
-      
-      
+  
+    
         };
-
+      }
 
       });
     }).then(function () {
@@ -382,7 +533,7 @@ console.log(JSON.stringify(obj))
 
 // APPROVE LOAN
 const approveLoan = () =>{
-console.log(loanid)
+console.log(crcreport)
 console.log(adminuserid)
 console.log(document.getElementById("approvecomment").value)
 
@@ -390,31 +541,81 @@ console.log(document.getElementById("approvecomment").value)
     setnotify2("Input a comment")
   }
 
+  else  if (crcreport === "/images/crcreport.svg"){
+    setnotify2("Select CRC report")
+  }
+
+  else  if (cvreport === "/images/cvreport.svg"){
+    setnotify2("Select CV report")
+  }
+
   else{
     setnotify2("Processing...")
-    var settingsthree = {
-      "url": "https://credisol-app.herokuapp.com/v1/loans/approvals/",
+    const obj ={  
+      "status" : "approved",
+      "comments" : document.getElementById("approvecomment").value,
+      "loan" : loanid,
+      "user" : adminuserid,
+    }
+
+    const obj2 ={  
+  
+      "additional_documents":  [
+        {
+         'name': 'crc report',
+          'document_url': crcreporturl
+      },
+      {
+        'name': 'cv report',
+         'document_url': cvreporturl
+     }
+    ],
+    }
+
+
+    var settingsthree = { 
+      "url": "https://credisol-app.herokuapp.com/v1/loans/approvalss/",
       "method": "POST",
       "timeout": 0,
       "headers": {
          "Authorization": "Bearer " + localStorage.getItem("access_token"),
         },
   
-      "data":  { 
-      "status" : "approved",
-      "comments" : document.getElementById("approvecomment").value,
-      "loan" : loanid,
-      "user" : adminuserid,
-   
-      },
+        "processData": false,
+        "contentType": "application/json; charset=UTF-8",
+       "data": JSON.stringify(obj),
       error: function (xhr, status, error) {
         console.log(xhr)
       },
     }
     $.ajax(settingsthree).done(function (responsethree) {
       console.log(responsethree)
-      window.location.replace("/pof");
+      // window.location.replace("/pof");
     })
+console.log(loanId2)
+    var settingsfour = {
+      "url": "https://credisol-app.herokuapp.com/v1/business_loans/"+loanId2,
+      "method": "PATCH",
+      "timeout": 0,
+      "headers": {
+         "Authorization": "Bearer " + localStorage.getItem("access_token"),
+        },
+  
+        "processData": false,
+        "contentType": "application/json; charset=UTF-8",
+       "data": JSON.stringify(obj2),
+      error: function (xhr, status, error) {
+        console.log(xhr)
+      },
+    }
+    $.ajax(settingsfour).done(function (responsefour) {
+      console.log(responsefour)
+      // window.location.replace("/pof");
+    })
+
+
+
+
 }
 
 
@@ -568,6 +769,7 @@ console.log(document.getElementById("approvecomment").value)
 
 
                 <th class="ippiscol0" scope="col">LOAN I.D</th>
+                <th class="ippiscol0" scope="col">B.L I.D</th>
                 <th class="ippiscol0" scope="col">USER I.D</th>
                 <th class="ippiscol0" scope="col">FIRST NAME</th>
                 <th class="ippiscol0" scope="col">LAST NAME</th>
@@ -575,11 +777,15 @@ console.log(document.getElementById("approvecomment").value)
                 <th class="ippiscol0" scope="col">AMOUNT</th>
                 <th class="ippiscol0" scope="col">DURATION</th>
                 {/* <th class="ippiscol0" scope="col">STATUS</th> */}
-                <th class="ippiscol0" scope="col">COUNTRY OF VISIT</th>
-                <th class="ippiscol0" scope="col">REASON</th>
-                <th class="ippiscol0" scope="col">PASSPORT</th>
-                <th class="ippiscol0" scope="col">ADDITIONAL DOC</th>
+                <th class="ippiscol0" scope="col">ANNUAL TUNOVER</th>
+                <th class="ippiscol0" scope="col">REGISTRATION TYPE</th>
+                <th class="ippiscol0" scope="col">NAME OF BUSINESS</th>
+                <th class="ippiscol0" scope="col">REG NUMBER</th>
+                <th class="ippiscol0" scope="col">NUMBER OF DIRECTORS</th>
+                <th class="ippiscol0" scope="col">REGISTRATION DATE</th>
+                <th class="ippiscol0" scope="col">CITY OF INCORPORATION</th>
                 <th class="ippiscol0" scope="col">ACTIONS</th>
+                <th class="ippiscol0" scope="col"></th>
                 <th class="ippiscol0" scope="col"></th>
 
 
@@ -599,7 +805,38 @@ console.log(document.getElementById("approvecomment").value)
             </Modal.Header>
             <Modal.Body className="modalquestion">
 
-             <Form>
+
+            <div className="row" style={{marginTop:"0px"}}>
+    <div className="col-md-6">
+      <p>Upload CRC report</p>
+    <div class="image-upload empimgupload">
+  <label for="file">
+    <img class="mobileuploadimages" style={{marginBottom:"0px", cursor:"pointer "}} 
+     id="crcreport"  width="183" height="100" src={ crcreport} />
+  </label>
+  <input type="file" id="file" onChange= {(e)=> setcrcreport(e.target.files[0])}></input>
+</div>
+    </div>
+
+    <div className="col-md-6" style={{marginLeft:"0px"}}>
+    <p>Upload car valuation report</p>
+    <div class="image-upload empimgupload">
+  <label for="file2">
+    <img class="mobileuploadimages" style={{marginBottom:"0px", cursor:"pointer "}} 
+     id="cvreport"  width="183" height="100" src={cvreport} />
+  </label>
+  <input type="file" id="file2" onChange= {(e)=> setcvreport(e.target.files[0])}></input>
+</div>
+</div>
+
+
+
+
+
+</div>
+
+
+             <Form style={{marginTop:"30px"}}>
 
   <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
     <Form.Label>Why are you approving this loan request ?</Form.Label>
@@ -650,6 +887,67 @@ console.log(document.getElementById("approvecomment").value)
               <button className="blockbuttonmodal" onClick={declineLoan}>
                Decline
               </button>
+            </p>
+
+          </Modal>
+
+          <Modal show={morecoshow} onHide={handleCoMoreClose}>
+            <Modal.Header closeButton>
+            <Modal.Title class="modaltitle">{role}: View more</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="modalquestion">
+              
+            <div className="row">
+    <div className="col md-6">
+      <p>Means of ID</p>
+               <a id="identificationlink" target="_blank" href=""><img width="150px" height="150px" id="identification" src=""/></a> 
+    </div>
+
+    <div className="col md-6">
+    <p>Photograph</p>
+    <a id="photographlink" target="_blank" href=""> <img id="photograph" width="150px" height="150px" src=""/></a>
+        </div>
+
+        <div className="col md-6">
+      <p>Ownership</p>
+               <a id="ownershiplink" target="_blank" href=""><img width="150px" height="150px" id="ownership" src=""/></a> 
+    </div>
+
+    <div className="col md-6">
+    <p>Collateral</p>
+    <a id="collaterallink" target="_blank" href=""> <img id="collateral" width="150px" height="150px" src=""/></a>
+        </div>
+
+        <div className="col md-6">
+    <p>Certificate</p>
+    <a id="certificatelink" target="_blank" href=""> <img id="certificate" width="150px" height="150px" src=""/></a>
+        </div>
+
+  
+</div>
+
+<div class="row" style={{marginTop:"40px"}}>
+<div className="col md-6">
+    <p>Director 1 Name: <span id="director1name"></span></p>
+    <p>Director 1 BVN:  <span id="director1bvn"></span></p>
+        </div>
+
+        <div className="col md-6">
+        <p>Director 2 Name: <span id="director2name"></span></p>
+        <p>Director 2 BVN: <span id="director2bvn"></span></p>
+        </div>
+</div>
+                          
+<p class="" style={{ color:"#DD3737", fontWeight:"bold", textAlign:"center", paddingTop:"20px"}}>{notify2}</p>
+
+              </Modal.Body>
+
+            <p className="modalbuttons">
+              <button className="verifybutton" style={{marginRight:"20px"}} onClick={handleCoMoreClose}>
+                Cancel
+              </button>
+
+          
             </p>
 
           </Modal>

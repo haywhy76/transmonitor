@@ -24,7 +24,7 @@ td{
     white-space: nowrap;
 } */
 
-#poftable{
+#poftable, #loanstatustable{
     display: block;
     overflow-x: auto;
     white-space: nowrap;

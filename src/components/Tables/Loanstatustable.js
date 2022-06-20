@@ -138,6 +138,10 @@ if (response[i].offer_code === "RO-VF-PF"){
   loantype = "P.O.F"
   }
 
+  else if (response[i].offer_code === "RO-BL-BL"){
+    loantype = "Business Loan"
+    }
+
         var td1 = document.createElement('td');
         td1.innerText = response[i].loan_id;
         var td2 = document.createElement('td');

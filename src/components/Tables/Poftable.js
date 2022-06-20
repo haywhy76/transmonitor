@@ -153,7 +153,9 @@ else if(userrole === "ACC"){
       var totalrecords = response.length
       setTotalNumber(totalrecords)
       $.each(response, function (i) {
+       if(response[i].offer_code === "RO-VF-PF"){
 
+   
         var table = document.getElementById('records_table');
         var tr = document.createElement('tr');
         var defaultDates = response[i].created_at
@@ -263,7 +265,7 @@ else if(userrole === "ACC"){
       
       
         };
-
+      }
 
       });
     }).then(function () {
